@@ -1,0 +1,10 @@
+<h1>Study List</h1>
+<ul style="list-style-type:none">
+{% for study in studylist %}
+    <li>{{ study.study_name }} - {{ study.identifier }}
+      <p>Created on: {{ study.created_date }}</p><br></br>
+    </li>
+{% empty %}
+    <li>No studies are registered</li>
+{% endfor %}
+</ul>
