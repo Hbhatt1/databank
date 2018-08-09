@@ -4,7 +4,13 @@
     <li>{{ study.study_name }} - {{ study.identifier }}
       <p>Created on: {{ study.created_date }}</p><br></br>
     </li>
-{% empty %}
-    <li>No studies are registered</li>
 {% endfor %}
+<form action="{% url 'add_study' %}">
+  <input type="submit" value="Click here to add a study" />
+</form>
+<br>
+  <form action="{% url 'homepage' %}">
+    <input type="submit" value="Click to go back to the homepage" />
+  </form>
+</br>
 </ul>
