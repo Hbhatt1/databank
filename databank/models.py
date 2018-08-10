@@ -1,6 +1,5 @@
 from django.db import models
 from django.utils import timezone
-# Create your models here.
 
 class Study(models.Model):
     study_name = models.CharField(max_length=100, blank=False, unique=True)
