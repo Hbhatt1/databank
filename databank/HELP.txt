@@ -1,0 +1,18 @@
+# As the request comes in it is looking for the view associated with the request and the id.
+# Variable participant_list is using filter method of the particpant.objects
+# From which you have filtered and assigned study_id=id.
+# You are then asking the request to be rendered using template databank/participant.html
+# Dictionary items tell it to include participant_list and the study_id
+
+
+
+
+# Use . to access a property of request, this property is method == POST
+# POST bundles up form data and sends it to the server and recieves response.
+# That request is used to change the state of the system i.e changes to the database by adding participant
+# HTTP request of adding particpant will send request to view.py to def add_participant
+# it will take the request and id as from <int:id> you need to assign that id to something
+# variable participant_item save the form generated from ParticipantForm as an object ready to be committed
+# You can then add addtional parameters to it e.g. study_id = id. This way you are assigning the study_id to the participant
+# This can then be saved and a HttpResponseRedirect reverse participantlist argument = id,
+# This request will look at the urls.py for the name=participantlist and the id which now = study_id

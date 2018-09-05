@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Databank Participants</title>
+</head>
+<body>
+  <h1>Participant List</h1>
+  <ul style="list-style-type:none">
+    {% for participant in participant_list %}
+    <li>
+      {{ participant.participant_identifier }}
+    </li>
+    <br>
+    <a href="{% url 'results' study_id participant.id %}">Results</a>
+    &nbsp
+    &nbsp
+    <a href="{% url 'edit_participant' study_id participant.id %}">Edit</a>
+  </br>
+  <br />
+  {% endfor %}
+  <form action="{% url 'add_participant' study_id %}">
+    <input type="submit" value="Click here to add a participant" />
+  </form>
+  <br />
+  <form action="{% url 'study_list' %}">
+    <input type="submit" value="Go back to the study list" />
+  </form>
+</ul>
+</body>

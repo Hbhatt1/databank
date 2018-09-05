@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Databank Edit Study</title>
+    </head>
+    <body>
+<h1>Edit Study</h1>
+  <p>Edit and Save the changes to the Study</p>
+<form method="POST" action=" ">
+  {% csrf_token %}
+  <table>
+  {{ form }}
+  </table>
+    <br>
+      <input type="submit" value="Save">
+    </br>
+</form>
+<form action="{% url 'study_list' %}">
+  <input type="submit" value="Back" />
+</form>
