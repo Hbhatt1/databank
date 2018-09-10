@@ -74,9 +74,17 @@ def add_result(request, study_id, participant_id, template_name='studies/add_res
         form = ResultForm(request.POST)
         if form.is_valid():
             result_item = form.save(commit=False)
-            result_item.result_id = participant_id
-            participant_item.save()
-            return HttpResponseRedirect(reverse('results', args=(participant_id,)))
+            result_item.participant_id = participant_id
+            result_item.save()
+            return HttpResponseRedirect(reverse('results', args=(study_id, participant_id,)))
     else:
         form = ResultForm()
     return render(request, template_name, {'form': form, 'study_id':study_id, 'participant_id':participant_id})
+
+def edit_result(request, study_id, participant_id, result_id, template_name='studies/edit_results.html'):
+    result = get_object_or_404(Result, id=result_id)
+    form = ResultForm(request.POST or None, instance=result)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('results', args=(study_id, participant_id,)))
+    return render(request, template_name, {'form':form, 'study_id':study_id, 'participant_id':participant_id, 'result_id':result_id})

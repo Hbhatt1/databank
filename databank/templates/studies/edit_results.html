@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Edit Participant Result</title>
+    </head>
+    <body>
+<h1>Edit Result</h1>
+  <p>Edit and Save the changes to the result</p>
+<form method="POST" action=" ">
+  {% csrf_token %}
+  <table>
+  {{ form }}
+  </table>
+    <br>
+      <input type="submit" value="Save">
+    </br>
+  </form>
+  <br />
+  <form action="{% url 'results' study_id participant_id %}">
+    <input type="submit" value="Back" />
+  </form>
+  </body>
+</html>

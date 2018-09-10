@@ -2,50 +2,59 @@
 <html>
 <head>
   <style>
-    table {
-      border-collapse: collapse;
-      border: 1px solid black;
-    }
+  table {
+    border-collapse: collapse;
+    border: 1px solid black;
+  }
 
-    th,td {
-      border: 1px solid black;
-      text-align: center;
-    }
+  th,td {
+    border: 1px solid black;
+    text-align: center;
+  }
 
-    table.a {
-      table-layout: auto;
-      width: 50%;
-    }
-    </style>
-  </head>
-  <body>
-    <h1>Results</h1>
+  table.a {
+    table-layout: auto;
+    width: 50%;
+  }
+  </style>
+</head>
+<body>
+  <h1>Results</h1>
+    {% for result in results %}
     <table class="a">
-      {% for result in results %}
-      <tr>
-        <th>Participant Identifier</th>
-        <th>Visit Number</th>
-        <th>Visit Date</th>
-        <th>Raw Neutrophils</th>
-        <th>Raw Macrophages</th>
-        <th>Raw Eosinophils</th>
-        <th>Raw Epithelium</th>
-        <th>Raw Lymphocytes</th>
-      </tr>
-      <tr>
-        <td>{{ result.participant_identifier }}</td>
-        <td>{{ result.visit_number }}</td>
-        <td>{{ result.visit_date }}</td>
-        <td>{{ result.raw_neutrophils }}</td>
-        <td>{{ result.raw_macrophages }}</td>
-        <td>{{ result.raw_eosinophils }}</td>
-        <td>{{ result.raw_epithelium }}</td>
-        <td>{{ result.raw_lymphocytes }}</td>
-      </tr>
-    </table>
-    <br>
-    <a href="">Edit</a>
-  </br>
+    <tr>
+      <th>Visit Number</th>
+      <th>Visit Date</th>
+      <th>Raw Neutrophils</th>
+      <th>Raw Macrophages</th>
+      <th>Raw Eosinophils</th>
+      <th>Raw Epithelium</th>
+      <th>Raw Lymphocytes</th>
+      <th>Total Cells</th>
+      <th>Percent Neutrophils</th>
+      <th>Percent Macrophages</th>
+      <th>Percent Eosinophils</th>
+      <th>Percent Epithelium</th>
+      <th>Percent Lymphocytes</th>
+    </tr>
+    <tr>
+      <td>{{ result.visit_number }}</td>
+      <td>{{ result.visit_date }}</td>
+      <td>{{ result.raw_neutrophils }}</td>
+      <td>{{ result.raw_macrophages }}</td>
+      <td>{{ result.raw_eosinophils }}</td>
+      <td>{{ result.raw_epithelium }}</td>
+      <td>{{ result.raw_lymphocytes }}</td>
+      <td>{{ result.total_cells }}</td>
+      <td>{{ result.percent_neutrophils }}</td>
+      <td>{{ result.percent_macrophages }}</td>
+      <td>{{ result.percent_eosinophils }}</td>
+      <td>{{ result.percent_macrophages }}</td>
+      <td>{{ result.percent_lymphocytes }}</td>
+    </tr>
+  </table>
+  <br />
+  <a href="{% url 'edit_result' study_id participant_id result.id %}">Edit</a>
   <br />
   {% endfor %}
   <form action="{% url 'add_result' study_id participant_id %}">

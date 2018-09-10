@@ -1,4 +1,5 @@
 from django.forms import ModelForm
+from django.forms import forms
 from .models import Study
 from .models import Participant
 from .models import Result
@@ -28,4 +29,8 @@ class ResultForm(ModelForm):
         'raw_eosinophils',
         'raw_epithelium',
         'raw_lymphocytes',
+        'total_cells',
         ]
+
+# Modfy HTML for date using widgets
+# Validators?
