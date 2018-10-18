@@ -1,12 +1,25 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Databank Homepage</title>
-    </head>
-    <body>
-      <h1> Welcome to the Respiratory BRC databank</h1>
-          <form action="{% url 'study_list' %}">
-            <input type="submit" value="STUDY LIST" />
-          </form>
-    </body>
-</html>
+{% extends "databank\basepage.html" %}
+{% block content %}
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav mr-auto">
+        <a class="nav-item nav-link" href="{% url 'register' %}">Register</a>
+        <a class="nav-item nav-link" href="{% url 'login' %}">Login</a>
+      </div>
+    </div>
+  </nav>
+</header>
+
+    <main role="main" class="container">
+      <section class="jumbotron text-center">
+        <div class="container">
+          <h1 class="jumbotron-heading">Welcome to the Respiratory BRC Databank</h1>
+      </div>
+    </div>
+  </section>
+</main>
+{% endblock %}

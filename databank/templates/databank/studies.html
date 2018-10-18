@@ -1,35 +1,40 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Databank Study List</title>
-</head>
-<body>
-  <h1>Study List</h1>
-  <ul style="list-style-type:none">
+{% extends "databank\basepage.html" %}
+{% block content %}
+
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav mr-auto">
+        {% if user.is_authenticated %}
+        <a class="nav-item active nav-link" href="">Studies</a>
+        <a class="nav-item nav-link" href="javascript:{document.getElementById('logout').submit()}" onclick="">Logout</a>
+        <form id="logout" method="POST" action="{% url 'logout' %}">
+          {% csrf_token %}
+          <input type="hidden">
+        </form>
+        {% endif %}
+      </div>
+    </div>
+  </nav>
+</header>
+
+</br>
+<div class="container-fluid">
     {% for study in study_list %}
-    <li>
-      {{ study.study_name }}
-    </li>
-    <li>
-      {{ study.identifier }} -
-      {{ study.created_date }}
-    </li>
-    <br>
-    <a href="{% url 'participant_list' study.id %}">Participant</a>
-    &nbsp
-    &nbsp
-    <a href="{% url 'edit_study' study.id %}">Edit</a>
+    <div class="card" style="width: 18rem;">
+      <div class="card-body">
+        <h5 class="card-title">{{ study.study_name }}</h5>
+        <h6 class="card-subtitle mb-2 text-muted">{{ study.identifier }} {{ study.created_date }}</h6>
+        <a href="{% url 'participant_list' study.id %}" class="card-link">Participant</a>
+        <a href="{% url 'edit_study' study.id %}" class="card-link">Edit</a>
+      </div>
+    </div>
+    {% endfor %}
   </br>
-  <br>
-</br>
-{% endfor %}
-<form action="{% url 'add_study' %}">
-  <input type="submit" value="Click here to add a Study" />
-</form>
-</br>
-<form action="{% url 'homepage' %}">
-  <input type="submit" value="Back to the Homepage" />
-</form>
-</ul>
-</body>
-</html>
+    <a class="btn btn-primary" href="{% url 'add_study' %}" role="button">Add a Study</a>
+  </ul>
+</div>
+{% endblock %}

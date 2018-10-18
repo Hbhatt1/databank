@@ -1,0 +1,32 @@
+{% load bootstrap4 %}
+
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  {% bootstrap_css %}
+
+  <title>{% block title %}Resp BRC Databank{% endblock %}</title>
+</head>
+
+<body>
+    {% bootstrap_messages %}
+  <div id="content">
+    {% block content %}
+    {% endblock %}
+  </div>
+
+  <footer class="text-muted">
+    {% block footer %}
+    <div class="footer navbar-fixed-bottom text-center">
+      <p>&copy; Hetan Bhatt Leicester BRC Respiratory Theme</p>
+      <p>University of Leicester {% now "Y" %}</p>
+    </div>
+    {% endblock %}
+  </footer>
+  <!-- Bootstrap core JavaScript
+  ================================================== -->
+  <!-- Placed at the end of the document so the pages load faster -->
+  {% bootstrap_javascript jquery='full' %}
+</body>
+</html>

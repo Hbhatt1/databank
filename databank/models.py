@@ -1,8 +1,10 @@
-from django.db import models
-from django.utils import timezone
-from django.core.validators import MinValueValidator, MaxValueValidator
-from databank.utils import raw_to_percentage
 import datetime
+
+from django.core.validators import MinValueValidator, MaxValueValidator
+from django.db import models
+
+from .cell_counts import *
+
 
 class Study(models.Model):
     study_name = models.CharField(max_length=100, blank=False, unique=True)
@@ -37,9 +39,13 @@ class Result(models.Model):
     percent_eosinophils = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(100)], null=True)
     percent_epithelium = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(100)], null=True)
     percent_lymphocytes = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(100)], null=True)
+    viability = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(100)], null=True)
+    squamcont = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(100)], null=True)
+    tcc = models.FloatField(validators=[MinValueValidator(0), MaxValueValidator(100)], null=True)
 
     def __str__(self):
         return '%s' % self.participant
+
 
 # Override save function: When add result POST - import raw_to_percentage function in from utlis
 # and feed in the raw values and total cells. Set percent_blah to calculated values using super to

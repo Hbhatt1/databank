@@ -1,4 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
+from django.contrib.auth import authenticate, login as db_login, logout
+from django.contrib.auth.models import User
+from django.contrib import auth
 from django.http import HttpResponseRedirect
 from django.views.generic import UpdateView
 from django.urls import reverse
@@ -12,6 +15,39 @@ from .forms import ResultForm
 # Homepage
 def homepage(request):
     return render(request, 'databank/homepage.html')
+
+# Register, Login and Logout
+
+def register(request):
+    if request.method =="POST":
+        if request.POST['password1'] == request.POST['password2']:
+            try:
+                user = User.objects.get(username=request.POST['username'])
+                return render(request, 'databank/register.html', {'error':'Username already exists!'})
+            except User.DoesNotExist:
+                user = User.objects.create_user(request.POST['username'], password=request.POST['password1'])
+                auth.login(request, user)
+                return redirect('homepage')
+        else:
+            return render(request, 'databank/register.html', {'error':'Passwords must match!'})
+    else:
+        return render(request, 'databank/register.html')
+
+def login(request):
+    if request.method =="POST":
+        user = authenticate(username=request.POST['username'], password=request.POST['password'])
+        if user is not None:
+            db_login(request, user)
+            return redirect('study_list')
+        else:
+            return render(request, 'databank/login.html', {'error':'Username or password is incorrect'})
+    else:
+        return render(request, 'databank/login.html')
+
+def logout(request):
+    if request.method =="POST":
+        auth.logout(request)
+        return redirect('homepage')
 
 
 # Shows studies with add and edit capabilities

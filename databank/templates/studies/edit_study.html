@@ -1,9 +1,6 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Databank Edit Study</title>
-    </head>
-    <body>
+{% extends "databank\basepage.html" %}
+{% block content %}
+
 <h1>Edit Study</h1>
   <p>Edit and Save the changes to the Study</p>
 <form method="POST" action=" ">
@@ -11,10 +8,9 @@
   <table>
   {{ form }}
   </table>
-    <br>
-      <input type="submit" value="Save">
-    </br>
+  <br>
+  <button class="btn btn-primary" type="submit">Save</button>
+<a class="btn btn-primary" href="{% url 'study_list' %}" role="button">Back</a>
 </form>
-<form action="{% url 'study_list' %}">
-  <input type="submit" value="Back" />
-</form>
+
+{% endblock %}

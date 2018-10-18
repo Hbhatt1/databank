@@ -1,0 +1,27 @@
+{% extends "databank\basepage.html" %}
+{% block content %}
+{% if error %}
+{{ error }}
+<br/>
+<br/>
+{% endif %}
+
+<div class="container">
+<h1>Login</h1>
+<form method="POST" action="{% url 'login' %}">
+  {% csrf_token %}
+  <div class="form-group">
+    <label for="email">Email address</label>
+    <input type="text" class="form-control" name="username" aria-describedby="emailHelp" placeholder="Enter email">
+    <small id="emailHelp" class="form-text text-muted">Please enter your University email address</small>
+  </div>
+  <div class="form-group">
+    <label for="password">Password</label>
+    <input type="password" class="form-control" name="password" placeholder="Password">
+  </div>
+<button class="btn btn-primary" type="submit" value="Login">Login</button>
+<a class="btn btn-primary" href="{% url 'homepage' %}" role="button">Back</a>
+</form>
+</div>
+{% endblock %}
+

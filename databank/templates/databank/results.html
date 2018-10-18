@@ -1,68 +1,74 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <style>
-  table {
-    border-collapse: collapse;
-    border: 1px solid black;
-  }
-
-  th,td {
-    border: 1px solid black;
-    text-align: center;
-  }
-
-  table.a {
-    table-layout: auto;
-    width: 50%;
-  }
-  </style>
-</head>
-<body>
-  <h1>Results</h1>
-    {% for result in results %}
-    <table class="a">
+{% extends "databank\basepage.html" %}
+{% block content %}
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+      <div class="navbar-nav mr-auto">
+        <a class="nav-item nav-link" href="{% url 'study_list' %}">Studies</a>
+        <a class="nav-item nav-link" href="{% url 'participant_list' study_id %}">Participants</a>
+        <a class="nav-item active nav-link" href="">Results</a>
+      </div>
+    </div>
+  </nav>
+</header>
+</br>
+{% for result in results %}
+<table class="table-striped table-sm">
+  <thead>
     <tr>
-      <th>Visit Number</th>
-      <th>Visit Date</th>
-      <th>Raw Neutrophils</th>
-      <th>Raw Macrophages</th>
-      <th>Raw Eosinophils</th>
-      <th>Raw Epithelium</th>
-      <th>Raw Lymphocytes</th>
-      <th>Total Cells</th>
-      <th>Percent Neutrophils</th>
-      <th>Percent Macrophages</th>
-      <th>Percent Eosinophils</th>
-      <th>Percent Epithelium</th>
-      <th>Percent Lymphocytes</th>
+      <th class="text-center">Visit Number</th>
+      <th class="text-center">Visit Date</th>
+      <th class="text-center">Raw Neutrophils</th>
+      <th class="text-center">Raw Macrophages</th>
+      <th class="text-center">Raw Eosinophils</th>
+      <th class="text-center">Raw Epithelium</th>
+      <th class="text-center">Raw Lymphocytes</th>
+      <th class="text-center">Cells Counted</th>
+      <th class="text-center">% Viability</th>
+      <th class="text-center">% Squamous Cont</th>
+      <th class="text-center">Total Cells x 10^6</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td class="text-center">{{ result.visit_number }}</td>
+      <td class="text-center">{{ result.visit_date }}</td>
+      <td class="text-center">{{ result.raw_neutrophils }}</td>
+      <td class="text-center">{{ result.raw_macrophages }}</td>
+      <td class="text-center">{{ result.raw_eosinophils }}</td>
+      <td class="text-center">{{ result.raw_epithelium }}</td>
+      <td class="text-center">{{ result.raw_lymphocytes }}</td>
+      <td class="text-center">{{ result.total_cells }}</td>
+      <td class="text-center">{{ result.viability }}</td>
+      <td class="text-center">{{ result.squamcont }}</td>
+      <td class="text-center">{{ result.tcc }}</td>
     </tr>
     <tr>
-      <td>{{ result.visit_number }}</td>
-      <td>{{ result.visit_date }}</td>
-      <td>{{ result.raw_neutrophils }}</td>
-      <td>{{ result.raw_macrophages }}</td>
-      <td>{{ result.raw_eosinophils }}</td>
-      <td>{{ result.raw_epithelium }}</td>
-      <td>{{ result.raw_lymphocytes }}</td>
-      <td>{{ result.total_cells }}</td>
-      <td>{{ result.percent_neutrophils }}</td>
-      <td>{{ result.percent_macrophages }}</td>
-      <td>{{ result.percent_eosinophils }}</td>
-      <td>{{ result.percent_macrophages }}</td>
-      <td>{{ result.percent_lymphocytes }}</td>
+      <th></th>
+      <th></th>
+      <th class="text-center">% Neutrophils</th>
+      <th class="text-center">% Macrophages</th>
+      <th class="text-center">% Eosinophils</th>
+      <th class="text-center">% Epithelium</th>
+      <th class="text-center">% Lymphocytes</th>
     </tr>
-  </table>
-  <br />
-  <a href="{% url 'edit_result' study_id participant_id result.id %}">Edit</a>
-  <br />
-  {% endfor %}
-  <form action="{% url 'add_result' study_id participant_id %}">
-    <input type="submit" value="Click here to add a result" />
-  </form>
-  <br />
-  <form action="{% url 'participant_list' study_id %}">
-    <input type="submit" value="Go back to the participant list" />
-  </form>
-</ul>
-</body>
+    <tr>
+      <td></td>
+      <td></td>
+      <td class="text-center">{{ result.percent_neutrophils }}</td>
+      <td class="text-center">{{ result.percent_macrophages }}</td>
+      <td class="text-center">{{ result.percent_eosinophils }}</td>
+      <td class="text-center">{{ result.percent_macrophages }}</td>
+      <td class="text-center">{{ result.percent_lymphocytes }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <a class="btn btn-link" href="{% url 'edit_result' study_id participant_id result.id %}" role="button">Edit</a>
+      <br />
+      {% endfor %}
+      <a class="btn btn-primary" href="{% url 'add_result' study_id participant_id %}" role="button">Add Result</a>
+      <br />
+      {% endblock %}
