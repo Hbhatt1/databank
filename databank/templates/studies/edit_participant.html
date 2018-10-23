@@ -1,23 +1,16 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Study Edit Participant</title>
-    </head>
-    <body>
+{% extends "databank/basepage.html" %}
+{% block content %}
+
 <h1>Edit Participant</h1>
-  <p>Edit and Save the changes to the participant</p>
+<p>Edit and Save the changes to the participant</p>
 <form method="POST" action=" ">
   {% csrf_token %}
   <table>
-  {{ form }}
+    {{ form }}
   </table>
-    <br>
-      <input type="submit" value="Save">
-    </br>
-  </form>
   <br />
-  <form action="{% url 'participant_list' study_id %}">
-    <input type="submit" value="Back" />
-  </form>
-  </body>
-</html>
+  <button class="btn btn-primary" type="submit" value="Save">Save</button>
+  <a class="btn btn-primary" href="{% url 'participant_list' study_id %}" role="button">Back</a>
+</form>
+
+{% endblock %}

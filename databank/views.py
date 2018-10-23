@@ -1,5 +1,7 @@
 from django.shortcuts import render, get_object_or_404, redirect
-from django.contrib.auth import authenticate, login as db_login, logout
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import authenticate, login as auth_login, logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.http import HttpResponseRedirect
@@ -37,7 +39,7 @@ def login(request):
     if request.method =="POST":
         user = authenticate(username=request.POST['username'], password=request.POST['password'])
         if user is not None:
-            db_login(request, user)
+            auth_login(request, user)
             return redirect('study_list')
         else:
             return render(request, 'databank/login.html', {'error':'Username or password is incorrect'})
@@ -51,10 +53,12 @@ def logout(request):
 
 
 # Shows studies with add and edit capabilities
+@login_required
 def study_list(request):
     return render(request, 'databank/studies.html',
     {'study_list':Study.objects.all})
 
+@login_required
 def add_study(request):
     if request.method == "POST":
         form = StudyForm(request.POST)
@@ -65,6 +69,7 @@ def add_study(request):
         form = StudyForm()
     return render(request, 'studies/add_study.html', {'form': form})
 
+@login_required
 def edit_study(request, study_id, template_name='studies/edit_study.html'):
     study = get_object_or_404(Study, id=study_id)
     form = StudyForm(request.POST or None, instance=study)
@@ -75,10 +80,12 @@ def edit_study(request, study_id, template_name='studies/edit_study.html'):
 
 
 # Shows participants related to a study with add and edit capabilities
+@login_required
 def participant_list(request, study_id, template_name='databank/participants.html'):
     participants = Participant.objects.filter(study_id=study_id)
     return render(request, template_name, {'participant_list':participants, 'study_id':study_id})
 
+@login_required
 def add_participant(request, study_id, template_name ='studies/add_participant.html' ):
     if request.method == "POST":
         form = ParticipantForm(request.POST)
@@ -91,6 +98,7 @@ def add_participant(request, study_id, template_name ='studies/add_participant.h
         form = ParticipantForm()
     return render(request, template_name, {'form': form, 'study_id': study_id})
 
+@login_required
 def edit_participant(request, study_id, participant_id, template_name='studies/edit_participant.html'):
     participant = get_object_or_404(Participant, id=participant_id)
     form = ParticipantForm(request.POST or None, instance=participant)
@@ -101,10 +109,12 @@ def edit_participant(request, study_id, participant_id, template_name='studies/e
 
 
 # Shows Results linked to participant related to a study with add and edit capabilities
+@login_required
 def result(request, study_id, participant_id, template_name='databank/results.html'):
     results = Result.objects.filter(participant_id=participant_id)
     return render(request, template_name, {'results':results, 'participant_id':participant_id, 'study_id':study_id})
 
+@login_required
 def add_result(request, study_id, participant_id, template_name='studies/add_result.html'):
     if request.method == "POST":
         form = ResultForm(request.POST)
@@ -117,6 +127,7 @@ def add_result(request, study_id, participant_id, template_name='studies/add_res
         form = ResultForm()
     return render(request, template_name, {'form': form, 'study_id':study_id, 'participant_id':participant_id})
 
+@login_required
 def edit_result(request, study_id, participant_id, result_id, template_name='studies/edit_results.html'):
     result = get_object_or_404(Result, id=result_id)
     form = ResultForm(request.POST or None, instance=result)

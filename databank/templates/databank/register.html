@@ -1,4 +1,4 @@
-{% extends "databank\basepage.html" %}
+{% extends "databank/basepage.html" %}
 {% block content %}
 {% if error %}
 {{ error }}
@@ -7,26 +7,26 @@
 {% endif %}
 
 <div class="container">
-<h1>Register</h1>
-<p>Please fill in the form below to submit a registration request</p>
-<form method="POST" action="{% url 'register' %}">
-  {% csrf_token %}
-  <div class="form-group">
-    <label for="email">Email address</label>
-    <input type="text" class="form-control" name="username" aria-describedby="emailHelp" placeholder="Enter email">
-    <small id="emailHelp" class="form-text text-muted">Please enter your University email address</small>
-  </div>
-  <div class="form-group">
-    <label for="password">Password</label>
-    <input type="password" class="form-control" name="password1" aria-describedby="password1Help" placeholder="Password">
-    <small id="password1Help" class="form-text text-muted">Your password must be more than 6 characters long and contain a number</small>
-  </div>
-  <div class="form-group">
-    <label for="password">Confirm password</label>
-    <input type="password" class="form-control" name="password2" aria-describedby="password2Help" placeholder="Confirm Password">
-  </div>
-<button class="btn btn-primary" type="submit" value="register">Register</button>
-<a class="btn btn-primary" href="{% url 'homepage' %}" role="button">Back</a>
-</form>
+  <h1>Register</h1>
+  <p>Please fill in the form below to submit a registration request</p>
+  <form method="POST" action="{% url 'register' %}">
+    {% csrf_token %}
+    <div class="form-group">
+      <label for="email">Email address</label>
+      <input type="text" class="form-control" name="username" aria-describedby="emailHelp" placeholder="Enter email">
+      <small id="emailHelp" class="form-text text-muted">Please enter your University email address</small>
+    </div>
+    <div class="form-group">
+      <label for="password">Password</label>
+      <input type="password" class="form-control" name="password1" aria-describedby="password1Help" placeholder="Password">
+      <small id="password1Help" class="form-text text-muted">Your password must be more than 6 characters long and contain a number</small>
+    </div>
+    <div class="form-group">
+      <label for="password">Confirm password</label>
+      <input type="password" class="form-control" name="password2" aria-describedby="password2Help" placeholder="Confirm Password">
+    </div>
+    <button class="btn btn-primary" type="submit" value="register">Register</button>
+    <a class="btn btn-primary" href="{% url 'homepage' %}" role="button">Back</a>
+  </form>
 </div>
 {% endblock %}

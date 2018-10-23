@@ -1,23 +1,16 @@
-<!DOCTYPE html>
-<html>
-<head>
-  <title>Databank Add Result</title>
-</head>
-<body>
-  <h1>Add a Result</h1>
-  <p>Please fill in the required information and click save to add the result</p>
-  <form method="POST" action=" ">
-    {% csrf_token %}
-    <table>
-      {{ form }}
-    </table>
-    <br>
-    <input type="submit" value="Save">
-  </br>
+{% extends "databank/basepage.html" %}
+{% block content %}
+
+<h1>Add a Result</h1>
+<p>Please fill in the required information and click save to add a result</p>
+<form method="POST" action=" ">
+  {% csrf_token %}
+  <table>
+    {{ form }}
+  </table>
+  <br />
+  <button class="btn btn-primary" type="submit">Save</button>
+  <a class="btn btn-primary" href="{% url 'results' study_id participant_id %}" role="button">Back</a>
 </form>
-<br />
-<form action="{% url 'results' study_id participant_id %}">
-  <input type="submit" value="Back" />
-</form>
-</body>
-</html>
+
+{% endblock %}

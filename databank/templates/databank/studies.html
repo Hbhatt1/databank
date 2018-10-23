@@ -1,4 +1,4 @@
-{% extends "databank\basepage.html" %}
+{% extends "databank/basepage.html" %}
 {% block content %}
 
 <header>
@@ -21,20 +21,20 @@
   </nav>
 </header>
 
-</br>
+<br />
 <div class="container-fluid">
-    {% for study in study_list %}
-    <div class="card" style="width: 18rem;">
-      <div class="card-body">
-        <h5 class="card-title">{{ study.study_name }}</h5>
-        <h6 class="card-subtitle mb-2 text-muted">{{ study.identifier }} {{ study.created_date }}</h6>
-        <a href="{% url 'participant_list' study.id %}" class="card-link">Participant</a>
-        <a href="{% url 'edit_study' study.id %}" class="card-link">Edit</a>
-      </div>
+  {% for study in study_list %}
+  <div class="card" style="width: 18rem;">
+    <div class="card-body">
+      <h5 class="card-title">{{ study.study_name }}</h5>
+      <h6 class="card-subtitle mb-2 text-muted">{{ study.identifier }} {{ study.created_date }}</h6>
+      <a href="{% url 'participant_list' study.id %}" class="card-link">Participant</a>
+      <a href="{% url 'edit_study' study.id %}" class="card-link">Edit</a>
     </div>
-    {% endfor %}
-  </br>
-    <a class="btn btn-primary" href="{% url 'add_study' %}" role="button">Add a Study</a>
-  </ul>
+  </div>
+  {% endfor %}
+  <br />
+  <a class="btn btn-primary" href="{% url 'add_study' %}" role="button">Add a Study</a>
+</ul>
 </div>
 {% endblock %}

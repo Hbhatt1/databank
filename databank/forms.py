@@ -1,19 +1,21 @@
-from django.forms import ModelForm
-from django.forms import forms
+from django.forms import *
+from django import forms
+from django.db import models
 from .cell_counts import *
-from .models import Participant
-from .models import Result
-from .models import Study
+from .models import *
+import datetime
 
 
 class StudyForm(ModelForm):
-    error_messages = {
-        'duplicate_identifier': "A study with that identifier already exists.",
-    }
-
+    
     class Meta:
         model = Study
         fields = ['study_name', 'identifier', 'created_date']
+        widgets = {'created_date': forms.DateInput(format=('%d/%m/%Y'), attrs={'type':'date'}),}
+        
+    error_messages = {
+        'duplicate_identifier': "A study with that identifier already exists.",
+    }
 
     def clean_identifier(self):
         identifier = self.cleaned_data['identifier']
@@ -32,6 +34,7 @@ class ParticipantForm(ModelForm):
     class Meta:
         model = Participant
         fields = ['participant_identifier', 'registration_date']
+        widgets = {'registration_date': forms.DateInput(format=('%d/%m/%Y'), attrs={'type':'date'}),}
 
     def clean_participant_identifier(self):
         participant_identifier = self.cleaned_data['participant_identifier']
@@ -66,6 +69,7 @@ class ResultForm(ModelForm):
             'squamcont',
             'tcc',
         ]
+        widgets = {'visit_date': forms.DateInput(format=('%d/%m/%Y'), attrs={'type':'date'}),}
 
     def clean_total_cells(self):
         neut = self.cleaned_data['raw_neutrophils']

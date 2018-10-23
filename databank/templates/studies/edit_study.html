@@ -1,16 +1,16 @@
-{% extends "databank\basepage.html" %}
+{% extends "databank/basepage.html" %}
 {% block content %}
 
 <h1>Edit Study</h1>
-  <p>Edit and Save the changes to the Study</p>
+<p>Edit and Save the changes to the Study</p>
 <form method="POST" action=" ">
   {% csrf_token %}
   <table>
-  {{ form }}
+    {{ form }}
   </table>
   <br>
   <button class="btn btn-primary" type="submit">Save</button>
-<a class="btn btn-primary" href="{% url 'study_list' %}" role="button">Back</a>
+  <a class="btn btn-primary" href="{% url 'study_list' %}" role="button">Back</a>
 </form>
 
 {% endblock %}
